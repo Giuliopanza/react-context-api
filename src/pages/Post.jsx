@@ -2,29 +2,18 @@ import { useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
-import axios from 'axios';
+import { useGlobalContext } from '../context/GlobalContext';
 
 
 const Post = () => {
     const { id } = useParams()
 
-    const url = 'http://localhost:3000/api/posts'
-
-
-    const [ singlePost, setSinglePost ] = useState( {
-        id: '',
-        title: '',
-        content: '',
-        image:'',
-        tags: '',
-    } )
-
-
-    
+    const { singlePost, getPostId } = useGlobalContext ()
 
     useEffect( () => {
-        axios.get( `${url}/${id}` )
-        .then( res => setSinglePost( res.data ) )
+
+        getPostId (id)
+
     }, [id] ) 
 
 
